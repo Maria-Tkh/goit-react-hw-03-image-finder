@@ -1,24 +1,16 @@
 import { Component } from 'react';
+import { fetchImages } from './api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
-import axios from 'axios';
-
-// const API_KEY = '22578935-bf31ef834e5011bcd0b44501d';
-
-// axios.default.baseURL = 'https://pixabay.com/api/';
-
-const fetchImages = async (imageTags, page) => {
-  // const params = 'fields = id;webformatURL;largeImageURL';
-  const response = await axios.get(
-    `https://pixabay.com/api/?key=22578935-bf31ef834e5011bcd0b44501d&q=${imageTags}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=12`,
-  );
-  return response.hits;
-};
+// import { ImageGallery } from './ImageGallery/ImageGallery';
+// import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
   state = {
     imageTags: '',
     page: 1,
-    gallery: [],
+    gallery: [
+      // {id: id, src: webformatURL},
+    ],
     requestState: 'idle',
   };
 
@@ -39,6 +31,9 @@ export class App extends Component {
     return (
       <div>
         <Searchbar onSearch={this.handleFormSubmit} />
+        {/* <ImageGallery gallery={this.state.gallery.webformatURL} /> */}
+        {/* <ImageGalleryItem key={this.state.gallery.id}
+          src={this.state.gallery.webformatURL} /> */}
       </div>
     );
   }

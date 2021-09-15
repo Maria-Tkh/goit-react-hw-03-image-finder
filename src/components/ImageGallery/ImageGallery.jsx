@@ -9,3 +9,4 @@ export const ImageGallery = ({ gallery, onModalOpen }) => {
     </ul>
   );
 };
+//
