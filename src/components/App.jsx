@@ -33,7 +33,7 @@ export class App extends Component {
       <div>
         <Searchbar onSearch={this.handleFormSubmit} />
         <ImageGallery gallery={gallery} />
-        {/* <ImageGalleryItem /> */}
+        {/*  */}
       </div>
     );
   }
