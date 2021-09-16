@@ -1,8 +1,13 @@
 export const ImageGalleryItem = ({ image }) => {
-  const { id, largeImageURL } = image;
+  const { webformatURL, largeImageURL, tags, handleSelectedImage } = image;
   return (
-    <li key={id} className="ImageGalleryItem">
-      <img src={largeImageURL} alt="" className="ImageGalleryItem-image" />
+    <li className="ImageGalleryItem">
+      <img
+        src={webformatURL}
+        alt={tags}
+        className="ImageGalleryItem-image"
+        onClick={() => handleSelectedImage(largeImageURL, tags)}
+      />
     </li>
   );
 };

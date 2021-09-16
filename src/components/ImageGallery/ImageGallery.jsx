@@ -1,12 +1,17 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ gallery, onModalOpen }) => {
+export const ImageGallery = ({ gallery }) => {
   return (
     <ul className="ImageGallery">
-      {gallery.map(image => (
-        <ImageGalleryItem src={image.webformatURL} onClick={onModalOpen} />
+      {gallery.map(({ id, largeImageURL, webformatURL, tags }) => (
+        <ImageGalleryItem
+          id={id}
+          webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
+          tags={tags}
+          //   onClick={onModalOpen}
+        />
       ))}
     </ul>
   );
 };
-//
