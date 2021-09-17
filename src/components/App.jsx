@@ -3,6 +3,7 @@ import { fetchImages } from './api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+import { Modal } from './Modal/Modal';
 // import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
@@ -11,6 +12,8 @@ export class App extends Component {
     page: 1,
     gallery: [],
     requestState: 'idle',
+    showModal: false,
+    largeImageURL: '',
   };
 
   //Делаем запись в state
@@ -23,6 +26,19 @@ export class App extends Component {
     this.setState({ page: this.state.page + 1 });
   };
 
+  // Управление модалкой
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
+  handleSelectedImage = (imageTags, largeImageURL) => {
+    this.setState({ imageTags, largeImageURL });
+    this.toggleModal();
+  };
+
   // Реакция на изменение state, делаем запросы
   async componentDidUpdate(_, prevState) {
     const { imageTags, page } = this.state;
@@ -31,7 +47,7 @@ export class App extends Component {
         const gallery = await fetchImages(imageTags, page);
         this.setState({ gallery: [...prevState.gallery, ...gallery] });
       } catch (error) {
-        console.log('error');
+        // console.log('error');
       }
 
     window.scrollTo({
@@ -41,14 +57,18 @@ export class App extends Component {
   }
 
   render() {
-    const { gallery } = this.state;
+    const { gallery, showModal, largeImageURL, imageTags } = this.state;
     const showGallery = gallery.length > 0;
+
     return (
       <div>
+        {showModal && (
+          <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} alt={imageTags} />
+        )}
         <Searchbar onSearch={this.handleFormSubmit} />
-        <ImageGallery gallery={gallery} />
+        <ImageGallery gallery={gallery} handleSelectedImage={this.handleSelectedImage} />
         {showGallery && <Button handleLoadMore={this.handleLoadMore} />}
-        {/* < ImageGalleryItem /> */}
+        {/* < ImageGalleryItem handleSelectedImage={ this.toggleModal}/> */}
       </div>
     );
   }

@@ -1,5 +1,5 @@
 export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags, handleSelectedImage }) => {
-  console.log(webformatURL);
+  // console.log(webformatURL );
   // const { webformatURL, largeImageURL, tags, handleSelectedImage } = image;
   return (
     <li className="ImageGalleryItem">
