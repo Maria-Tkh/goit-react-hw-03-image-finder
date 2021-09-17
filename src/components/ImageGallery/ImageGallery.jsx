@@ -1,14 +1,11 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 
-export const ImageGallery = ({ gallery, id }) => {
+export const ImageGallery = ({ gallery }) => {
+  console.log(gallery);
   return (
-    <ul className="ImageGallery">
-      {gallery.map(image => (
-        <ImageGalleryItem
-          key={id}
-          image={image}
-          //   onClick={onModalOpen}
-        />
+    <ul>
+      {gallery.map(({ id, largeImageURL, webformatURL }) => (
+        <ImageGalleryItem id={id} largeImageURL={largeImageURL} webformatURL={webformatURL} />
       ))}
     </ul>
   );
