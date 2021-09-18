@@ -3,7 +3,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { fetchImages } from './api';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import { Load } from './Loader/Loader';
