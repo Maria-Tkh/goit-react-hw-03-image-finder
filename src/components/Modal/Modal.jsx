@@ -6,16 +6,6 @@ import css from './Modal.module.css';
 const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
-  state = {
-    largeImageURL: '',
-    tags: '',
-  };
-
-  handleSelectedImage = (imageTags, largeImageURL) => {
-    this.setState({ imageTags, largeImageURL });
-    this.toggleModal();
-  };
-
   // закрытие модалки по Esc
   componentDidMount() {
     console.log('ModalcomponentDidMount ');
@@ -45,7 +35,7 @@ export class Modal extends Component {
   };
 
   render() {
-    const { tags, largeImageURL } = this.state;
+    const { largeImageURL, tags } = this.state;
     return createPortal(
       <div className={css.overlay} onClick={this.handleBackdropClick}>
         <div className={css.modal}>

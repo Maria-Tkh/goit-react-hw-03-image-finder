@@ -18,6 +18,7 @@ export class App extends Component {
     requestStatus: 'idle',
     showModal: false,
     largeImageURL: '',
+    tags: '',
   };
 
   //Делаем запись в state
@@ -38,8 +39,8 @@ export class App extends Component {
     }));
   };
 
-  handleSelectedImage = (imageTags, largeImageURL) => {
-    this.setState({ imageTags, largeImageURL });
+  handleSelectedImage = (largeImageURL, imageTags) => {
+    this.setState({ largeImageURL, imageTags });
     this.toggleModal();
   };
 
@@ -51,14 +52,14 @@ export class App extends Component {
         this.setState({ requestStatus: 'pending' });
         const gallery = await fetchImages(imageTags, page);
         this.setState({
-          gallery: [...prevState.gallery, ...gallery],
+          gallery: [...this.state.gallery, ...gallery],
           requestStatus: 'resolved',
         });
         if (gallery.length === 0) {
           return toast('Sorry, there are no images matching your search query. Please try again.');
         }
         this.setState({
-          gallery: [...prevState.gallery, ...gallery],
+          gallery: [...this.state.gallery, ...gallery],
         });
       } catch (error) {
         // this.setState({ requestStatus: 'rejected' });
@@ -86,7 +87,7 @@ export class App extends Component {
         <ImageGallery gallery={gallery} handleSelectedImage={this.handleSelectedImage} />
         {showGallery && <Button handleLoadMore={this.handleLoadMore} />}
         <Toaster position="top-right" />
-        <ImageGalleryItem handleSelectedImage={this.toggleModal} />
+        {/* <ImageGalleryItem handleSelectedImage={this.toggleModal} /> */}
       </div>
     );
   }
