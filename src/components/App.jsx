@@ -38,8 +38,8 @@ export class App extends Component {
     }));
   };
 
-  handleSelectedImage = (largeImageURL, imageTags) => {
-    this.setState({ largeImageURL, imageTags });
+  handleSelectedImage = (largeImageURL, tags) => {
+    this.setState({ largeImageURL, tags });
     this.toggleModal();
   };
 
@@ -61,8 +61,7 @@ export class App extends Component {
           gallery: [...this.state.gallery, ...gallery],
         });
       } catch (error) {
-        // this.setState({ requestStatus: 'rejected' });
-        // console.log('error');
+        console.log(error);
       }
 
     window.scrollTo({
