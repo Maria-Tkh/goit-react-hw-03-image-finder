@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import './ImageGallery.css';
 
 export const ImageGallery = ({ gallery, handleSelectedImage }) => {
-  console.log(gallery.webformatURL);
   return (
-    <ul>
+    <ul className="ImageGallery">
       {gallery.map(({ id, largeImageURL, webformatURL }) => (
         <ImageGalleryItem
           key={id}
@@ -14,4 +15,9 @@ export const ImageGallery = ({ gallery, handleSelectedImage }) => {
       ))}
     </ul>
   );
+};
+
+ImageGallery.propTypes = {
+  gallery: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleSelectedImage: PropTypes.func.isRequired,
 };

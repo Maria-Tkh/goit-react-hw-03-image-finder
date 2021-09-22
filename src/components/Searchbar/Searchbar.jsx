@@ -1,7 +1,11 @@
+import PropTypes from 'prop-types';
+import './Searchbar.css';
+
 export const Searchbar = ({ onSearch }) => {
   const handleSearch = e => {
     e.preventDefault();
     onSearch(e.target.elements.imageTags.value);
+    e.target.reset();
   };
 
   return (
@@ -22,4 +26,8 @@ export const Searchbar = ({ onSearch }) => {
       </form>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };

@@ -1,13 +1,12 @@
 import { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { fetchImages } from './api';
-import { Searchbar } from 'components/Searchbar/Searchbar';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-import { Button } from './Button/Button';
-import { Modal } from './Modal/Modal';
-import { Load } from './Loader/Loader';
-
-// import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+import { fetchImages } from '../api';
+import { Searchbar } from '../Searchbar/Searchbar';
+import { ImageGallery } from '../ImageGallery/ImageGallery';
+import { Button } from '../Button/Button';
+import { Modal } from '../Modal/Modal';
+import { Spinner } from '../Loader/Loader';
+import './App.css';
 
 export class App extends Component {
   state = {
@@ -43,6 +42,13 @@ export class App extends Component {
     this.toggleModal();
   };
 
+  handleScroll = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+
   // Реакция на изменение state, делаем запросы
   async componentDidUpdate(_, prevState) {
     const { imageTags, page } = this.state;
@@ -60,14 +66,10 @@ export class App extends Component {
         this.setState({
           gallery: [...this.state.gallery, ...gallery],
         });
+        this.handleScroll();
       } catch (error) {
         console.log(error);
       }
-
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
   }
 
   render() {
@@ -81,11 +83,10 @@ export class App extends Component {
           <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} alt={imageTags} />
         )}
         <Searchbar onSearch={this.handleFormSubmit} />
-        {isLoading && <Load />}
+        {isLoading && <Spinner />}
         <ImageGallery gallery={gallery} handleSelectedImage={this.handleSelectedImage} />
         {showGallery && <Button handleLoadMore={this.handleLoadMore} />}
         <Toaster position="top-right" />
-        {/* <ImageGalleryItem handleSelectedImage={this.toggleModal} /> */}
       </div>
     );
   }
