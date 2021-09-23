@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { fetchImages } from '../api';
+import { fetchImages } from '../services/api';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Button } from '../Button/Button';
@@ -26,7 +26,8 @@ export class App extends Component {
   };
 
   handleLoadMore = () => {
-    this.setState({ page: this.state.page + 1 });
+    // this.setState({ page: this.state.page + 1 });
+    this.setState(prevState => ({ page: prevState.page + 1 }));
   };
 
   // Управление модалкой
@@ -52,21 +53,27 @@ export class App extends Component {
   // Реакция на изменение state, делаем запросы
   async componentDidUpdate(_, prevState) {
     const { imageTags, page } = this.state;
+
     if (prevState.imageTags !== imageTags || prevState.page !== page)
       try {
         this.setState({ requestStatus: 'pending' });
         const gallery = await fetchImages(imageTags, page);
-        this.setState({
-          gallery: [...this.state.gallery, ...gallery],
+
+        this.setState(prevState => ({
+          gallery: [...prevState.gallery, ...gallery],
           requestStatus: 'resolved',
-        });
+        }));
         if (gallery.length === 0) {
           return toast('Sorry, there are no images matching your search query. Please try again.');
         }
-        this.setState({
-          gallery: [...this.state.gallery, ...gallery],
-        });
-        this.handleScroll();
+        this.setState(
+          prevState => ({
+            gallery: [...prevState.gallery, ...gallery],
+          }),
+          () => {
+            this.handleScroll();
+          },
+        );
       } catch (error) {
         console.log(error);
       }
