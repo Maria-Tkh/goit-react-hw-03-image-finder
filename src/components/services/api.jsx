@@ -11,7 +11,7 @@ axios.defaults.params = {
 
 export const fetchImages = async (imageTags, page) => {
   const response = await axios.get(
-    `?params&q=${imageTags}&orientation=horizontal&safesearch=true&page=${page}&per_page=12`,
+    `?q=${imageTags}&orientation=horizontal&safesearch=true&page=${page}&per_page=12`,
   );
   return response.data.hits;
 };

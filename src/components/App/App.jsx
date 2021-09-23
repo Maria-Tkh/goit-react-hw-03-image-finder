@@ -59,21 +59,18 @@ export class App extends Component {
         this.setState({ requestStatus: 'pending' });
         const gallery = await fetchImages(imageTags, page);
 
-        this.setState(prevState => ({
-          gallery: [...prevState.gallery, ...gallery],
-          requestStatus: 'resolved',
-        }));
-        if (gallery.length === 0) {
-          return toast('Sorry, there are no images matching your search query. Please try again.');
-        }
         this.setState(
           prevState => ({
             gallery: [...prevState.gallery, ...gallery],
+            requestStatus: 'resolved',
           }),
           () => {
             this.handleScroll();
           },
         );
+        if (gallery.length === 0) {
+          return toast('Sorry, there are no images matching your search query. Please try again.');
+        }
       } catch (error) {
         console.log(error);
       }
