@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { fetchImages } from '../services/api';
+import { fetchImages } from '../../services/api';
 import { Searchbar } from '../Searchbar/Searchbar';
 import { ImageGallery } from '../ImageGallery/ImageGallery';
 import { Button } from '../Button/Button';
